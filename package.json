@@ -1,0 +1,94 @@
+{
+  "name": "@rhythmiclabs/rhythmic-events",
+  "version": "1.0.1",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
+  },
+  "description": "TypeScript event library for typed event emitters, domain events, and pub/sub messaging with caching",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf dist",
+    "prebuild": "bun run clean",
+    "prepublishOnly": "bun run build",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest",
+    "test:watch": "NODE_OPTIONS=--experimental-vm-modules jest --watch",
+    "test:coverage": "NODE_OPTIONS=--experimental-vm-modules jest --coverage",
+    "test:ci": "NODE_OPTIONS=--experimental-vm-modules jest --coverage --ci",
+    "test:debug": "NODE_OPTIONS=--experimental-vm-modules jest --inspect-brk",
+    "lint": "eslint src/**/*.ts --ignore-pattern '**/__tests__/**' --ignore-pattern '**/*.test.ts' --no-warn-ignored",
+    "lint:fix": "eslint src/**/*.ts --ignore-pattern '**/__tests__/**' --ignore-pattern '**/*.test.ts' --no-warn-ignored --fix",
+    "format": "prettier --write src/**/*.ts",
+    "format:check": "prettier --check src/**/*.ts",
+    "type-check": "tsc --noEmit",
+    "check-all": "bun run type-check && bun run lint && bun run format:check && bun run test:ci",
+    "example": "bun example.ts",
+    "test:setup": "docker-compose -f docker-compose.yml up -d redis-test",
+    "test:teardown": "docker-compose -f docker-compose.yml down",
+    "test:setup-ci": "docker-compose -f docker-compose.test.yml up -d redis-test",
+    "test:teardown-ci": "docker-compose -f docker-compose.test.yml down",
+    "test:redis": "docker-compose -f docker-compose.yml up redis-test && npm run test:once && docker-compose -f docker-compose.yml down",
+    "test:once": "NODE_OPTIONS=--experimental-vm-modules jest src/__tests__"
+  },
+  "keywords": [
+    "events",
+    "event-emitter",
+    "domain-events",
+    "pubsub",
+    "typescript",
+    "messaging",
+    "caching",
+    "event-driven",
+    "architecture"
+  ],
+  "author": "Saleh Shehata",
+  "license": "BUSL-1.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rhythmiclabs/rhythmic-events.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rhythmiclabs/rhythmic-events/issues"
+  },
+  "homepage": "https://github.com/rhythmiclabs/rhythmic-events#readme",
+  "devDependencies": {
+    "@eslint/js": "^9.0.0",
+    "@jest/globals": "^29.7.0",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^24.10.13",
+    "@typescript-eslint/eslint-plugin": "^8.42.0",
+    "@typescript-eslint/parser": "^8.42.0",
+    "croner": "^10.0.1",
+    "eslint": "^9.0.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "jest": "^29.7.0",
+    "prettier": "^3.6.2",
+    "redis": "^5.10.0",
+    "ts-jest": "^29.2.6",
+    "typescript": "^5.9.2"
+  },
+  "dependencies": {
+    "eventemitter3": "^5.0.1"
+  },
+  "peerDependencies": {
+    "croner": "^9.0.0",
+    "redis": "^4.7.1"
+  },
+  "peerDependenciesMeta": {
+    "croner": {
+      "optional": true
+    },
+    "redis": {
+      "optional": true
+    }
+  }
+}

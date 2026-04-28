@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  redis-test:
+    image: redis:7-alpine
+    container_name: events-redis-test-ci
+    ports:
+      - '6380:6379'
+    volumes:
+      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
+      - redis-test-data:/data
+    command: redis-server /usr/local/etc/redis/redis.conf
+    environment:
+      - REDIS_PASSWORD=testpass
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 1s
+      timeout: 3s
+      retries: 10
+      start_period: 15s
+    networks:
+      - test-network
+
+volumes:
+  redis-test-data:
+    driver: local
+
+networks:
+  test-network:
+    driver: bridge
