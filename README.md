@@ -13,7 +13,7 @@ This library offers a complete event-driven architecture solution with TypeScrip
 - ⏸️ **Event Suspension**: Request-response patterns with timeout handling
 - 🔔 **Reminder Manager**: Automated reminder workflows with response handling
 - ⏰ **Cron Scheduler**: Declarative cron-based event scheduling with `ScheduledEventManager`
-- 📊 **Graph Store**: In-memory graph storage with vector similarity search for RAG
+- 📊 ****: In-memory graph storage with vector similarity search for RAG
 - 🔧 **Production Ready**: Full TypeScript support, comprehensive testing, and type safety
 
 ## Features
@@ -293,74 +293,6 @@ const active = scheduler.getActiveCount();
 
 // Teardown
 scheduler.cleanup();             // stops all, clears map (idempotent)
-```
-
-### In-Memory Graph Store
-
-```typescript
-import {
-  InMemoryGraphStore,
-  cosineSimilarity,
-  searchTopK,
-} from '@rhythmiclabs/rhythmic-events';
-
-// Define your graph and microservice types
-interface MyGraph {
-  id: string;
-  name: string;
-  companyId: string;
-  userId: string;
-  contextEmbedding?: number[];
-  nodes: Array<{ id: string; name: string; nodeType: string }>;
-}
-
-interface MyMicroservice {
-  id: string;
-  name: string;
-  companyId: string;
-  language: string;
-}
-
-// Create store with optional config
-const store = new InMemoryGraphStore<MyGraph, MyMicroservice>({
-  maxGraphs: 5000,
-  maxMicroservices: 5000,
-});
-await store.connect();
-
-// Create a graph
-const graphId = await store.createGraph({
-  name: 'web-app-stack',
-  companyId: 'acme-corp',
-  userId: 'user-123',
-  contextEmbedding: [0.8, 0.2, 0.5],
-  nodes: [
-    { id: 'n1', name: 'api-service', nodeType: 'DEPLOYMENT' },
-    { id: 'n2', name: 'postgres', nodeType: 'DATABASE' },
-  ],
-});
-
-// Retrieve by ID, name, or company
-const graph = await store.getGraph(graphId);
-const byName = await store.getGraphByName('web-app-stack', 'acme-corp');
-const companyGraphs = await store.getGraphs('acme-corp');
-
-// Vector similarity search for RAG
-const similar = await store.searchSimilarGraphsByEmbedding(
-  [0.9, 0.1, 0.4], // query embedding
-  3,                 // topK
-  'acme-corp',       // optional company filter
-);
-
-// Standalone vector utilities
-const similarity = cosineSimilarity([1, 0, 0], [0.9, 0.1, 0]);
-const topResults = searchTopK(
-  myItems,
-  queryEmbedding,
-  (item) => item.embedding,
-  5,
-);
-```
 
 ## Advanced Usage
 
