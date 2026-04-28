@@ -17,12 +17,7 @@ export class ScheduledEvent<TPayload = unknown> extends DomainEvent<
   static readonly EVENT_TYPE = 'scheduler.tick' as const;
 
   constructor(data: ScheduledEventData<TPayload>) {
-    super(
-      ScheduledEvent.EVENT_TYPE,
-      randomUUID(),
-      data,
-      data.scheduleId
-    );
+    super(ScheduledEvent.EVENT_TYPE, randomUUID(), data, data.scheduleId);
   }
 
   get scheduleId(): string {

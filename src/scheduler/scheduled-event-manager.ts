@@ -8,7 +8,14 @@ import type {
   ScheduledTick,
 } from './scheduler-types';
 
-type InternalEntry = ScheduleEntry & { job: { pause(): boolean; resume(): boolean; stop(): void; trigger(): Promise<void> } };
+type InternalEntry = ScheduleEntry & {
+  job: {
+    pause(): boolean;
+    resume(): boolean;
+    stop(): void;
+    trigger(): Promise<void>;
+  };
+};
 
 export class ScheduledEventManager {
   private readonly schedules: Map<string, InternalEntry> = new Map();
@@ -125,12 +132,16 @@ export class ScheduledEventManager {
   getSchedule(scheduleId: string): ScheduleEntry | undefined {
     const entry = this.schedules.get(scheduleId);
     if (!entry) return undefined;
-    const { job: _job, ...publicEntry } = entry;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { job: _, ...publicEntry } = entry;
     return publicEntry;
   }
 
   listSchedules(): ScheduleEntry[] {
-    return Array.from(this.schedules.values()).map(({ job: _job, ...entry }) => entry);
+    return Array.from(this.schedules.values()).map(
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      ({ job: _, ...entry }) => entry
+    );
   }
 
   getActiveCount(): number {
