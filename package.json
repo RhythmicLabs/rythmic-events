@@ -1,5 +1,5 @@
 {
-  "name": "@rhythmiclabs/rhythmic-events",
+  "name": "@rhythmiclab/rhythmic-events",
   "version": "1.0.1",
   "publishConfig": {
     "registry": "https://registry.npmjs.org",
