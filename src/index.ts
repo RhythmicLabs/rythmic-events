@@ -93,13 +93,13 @@ export {
   type ScheduledTickFactory,
 } from './scheduler/index';
 
-// Graph Store
-export {
-  InMemoryGraphStore,
-  type InMemoryGraphStoreOptions,
-  type GraphStorage,
-  type GraphStoreStats,
-  cosineSimilarity,
-  searchTopK,
-  type SimilarityResult,
-} from './graph-store/index';
+// Graph Store (implementation pending)
+// export {
+//   InMemoryGraphStore,
+//   type InMemoryGraphStoreOptions,
+//   type GraphStorage,
+//   type GraphStoreStats,
+//   cosineSimilarity,
+//   searchTopK,
+//   type SimilarityResult,
+// } from './graph-store/index';

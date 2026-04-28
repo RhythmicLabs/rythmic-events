@@ -3,7 +3,7 @@
 ## Project
 
 **Package:** `@rhythmiclabs/rhythmic-events`
-**License:** BUSL-1.1
+**License:** Apache-2.0
 **Type:** ESM-only TypeScript library (`"type": "module"`)
 **Runtime:** Node.js / Bun
 **Entry point:** `dist/index.js` (compiled from `src/index.ts`)

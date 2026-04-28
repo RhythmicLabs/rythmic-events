@@ -25,10 +25,6 @@ export class ScheduledEvent<TPayload = unknown> extends DomainEvent<
     );
   }
 
-  override get type(): string {
-    return ScheduledEvent.EVENT_TYPE;
-  }
-
   get scheduleId(): string {
     return this.data.scheduleId;
   }
